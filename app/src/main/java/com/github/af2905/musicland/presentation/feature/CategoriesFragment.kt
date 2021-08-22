@@ -10,8 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.af2905.musicland.databinding.FragmentCategoriesBinding
 import com.github.af2905.musicland.di.DependencyInjector
 import com.github.af2905.musicland.presentation.base.UiState
+import com.github.af2905.musicland.presentation.widget.adapter.LoadingAdapter
 import com.github.af2905.musicland.presentation.widget.adapter.delegate.CompositeDelegateAdapter
 import com.github.af2905.musicland.presentation.widget.item.CategoryItem
+import com.github.af2905.musicland.presentation.widget.item.LoadingItem
+import com.github.af2905.musicland.presentation.widget.model.Model
 
 class CategoriesFragment : Fragment(), CategoriesContract.View {
 
@@ -31,12 +34,13 @@ class CategoriesFragment : Fragment(), CategoriesContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setPresenter(CategoriesPresenter(this, DependencyInjector()))
-        presenter.onViewCreated()
         adapter = CompositeDelegateAdapter(
-            CategoryAdapter(CategoryItem.VIEW_TYPE) { presenter.onOpenDetailClicked(it) }
+            CategoryAdapter(CategoryItem.VIEW_TYPE) { presenter.onOpenDetailClicked(it) },
+            LoadingAdapter(LoadingItem.VIEW_TYPE)
         )
         recyclerView = binding.categoriesRecyclerView
         recyclerView.adapter = adapter
+        presenter.onViewCreated()
     }
 
     override fun onDestroy() {
@@ -50,19 +54,14 @@ class CategoriesFragment : Fragment(), CategoriesContract.View {
 
     override fun displayUiState(uiState: UiState, list: List<CategoryItem>) {
         when (uiState) {
-            UiState.LOADING -> {
-                Toast.makeText(requireContext(), "loading", Toast.LENGTH_SHORT).show()
-            }
-            UiState.SUCCESS -> {
-                adapter.submitList(list)
-                Toast.makeText(requireContext(), "success", Toast.LENGTH_SHORT).show()
-            }
+            UiState.LOADING -> adapter.submitList(mutableListOf(LoadingItem()) as List<Model>?)
+            UiState.SUCCESS -> adapter.submitList(list)
             UiState.FAIL -> Toast.makeText(requireContext(), "fail", Toast.LENGTH_SHORT).show()
         }
     }
 
     override fun forwardToDetail(item: CategoryItem) {
-        Toast.makeText(requireContext(), "open detail clicked", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), item.name, Toast.LENGTH_SHORT).show()
     }
 
     override fun setPresenter(presenter: CategoriesContract.Presenter) {
