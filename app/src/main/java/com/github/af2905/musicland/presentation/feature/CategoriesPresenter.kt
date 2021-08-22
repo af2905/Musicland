@@ -2,18 +2,18 @@ package com.github.af2905.musicland.presentation.feature
 
 import com.github.af2905.musicland.di.DependencyInjector
 import com.github.af2905.musicland.domain.interactor.BrowseInteractor
-import com.github.af2905.musicland.presentation.base.MainContract
 import com.github.af2905.musicland.presentation.base.UiState
+import com.github.af2905.musicland.presentation.widget.item.CategoryItem
 import kotlinx.coroutines.*
 
 class CategoriesPresenter(
-    view: MainContract.View,
+    view: CategoriesContract.View,
     dependencyInjector: DependencyInjector
-) : MainContract.Presenter {
+) : CategoriesContract.Presenter {
 
     private val browseInteractor = BrowseInteractor(dependencyInjector.browseRepository())
 
-    private var view: MainContract.View? = view
+    private var view: CategoriesContract.View? = view
 
     override fun onViewCreated() {
         loadCategories()
@@ -21,6 +21,10 @@ class CategoriesPresenter(
 
     override fun loadData() {
         loadCategories()
+    }
+
+    override fun onOpenDetailClicked(item: CategoryItem) {
+        view?.forwardToDetail(item)
     }
 
     override fun onDestroy() {
@@ -31,8 +35,8 @@ class CategoriesPresenter(
         view?.displayUiState(UiState.LOADING)
         CoroutineScope(Dispatchers.Main).launch {
             val categories = browseInteractor.getCategories()
-            if (!categories.categoriesDto.items.isNullOrEmpty()) {
-                view?.displayUiState(UiState.SUCCESS)
+            if (!categories.isNullOrEmpty()) {
+                view?.displayUiState(UiState.SUCCESS, categories)
             } else {
                 view?.displayUiState(UiState.FAIL)
             }
