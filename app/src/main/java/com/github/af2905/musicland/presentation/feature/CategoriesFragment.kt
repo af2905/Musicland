@@ -52,9 +52,9 @@ class CategoriesFragment : Fragment(), CategoriesContract.View {
         val TAG: String = CategoriesFragment::class.java.simpleName
     }
 
-    override fun displayUiState(uiState: UiState, list: List<CategoryItem>) {
+    override fun displayUiState(uiState: UiState, list: List<Model>) {
         when (uiState) {
-            UiState.LOADING -> adapter.submitList(mutableListOf(LoadingItem()) as List<Model>?)
+            UiState.LOADING -> adapter.submitList(list)
             UiState.SUCCESS -> adapter.submitList(list)
             UiState.FAIL -> Toast.makeText(requireContext(), "fail", Toast.LENGTH_SHORT).show()
         }

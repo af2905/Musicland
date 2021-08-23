@@ -4,7 +4,11 @@ import com.github.af2905.musicland.di.DependencyInjector
 import com.github.af2905.musicland.domain.interactor.BrowseInteractor
 import com.github.af2905.musicland.presentation.base.UiState
 import com.github.af2905.musicland.presentation.widget.item.CategoryItem
-import kotlinx.coroutines.*
+import com.github.af2905.musicland.presentation.widget.item.LoadingItem
+import com.github.af2905.musicland.presentation.widget.model.Model
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class CategoriesPresenter(
     view: CategoriesContract.View,
@@ -14,6 +18,9 @@ class CategoriesPresenter(
     private val browseInteractor = BrowseInteractor(dependencyInjector.browseRepository())
 
     private var view: CategoriesContract.View? = view
+
+    private val items = mutableListOf<Model>()
+    private fun starter() = mutableListOf(LoadingItem())
 
     override fun onViewCreated() {
         loadCategories()
@@ -32,11 +39,12 @@ class CategoriesPresenter(
     }
 
     private fun loadCategories() {
-        view?.displayUiState(UiState.LOADING)
+        view?.displayUiState(UiState.LOADING, starter())
         CoroutineScope(Dispatchers.Main).launch {
             val categories = browseInteractor.getCategories()
             if (!categories.isNullOrEmpty()) {
-                view?.displayUiState(UiState.SUCCESS, categories)
+                items.addAll(categories)
+                view?.displayUiState(UiState.SUCCESS, items)
             } else {
                 view?.displayUiState(UiState.FAIL)
             }
