@@ -6,5 +6,6 @@ object ApiParams {
     const val LOCALE = "locale"
     const val LIMIT = "limit"
     const val OFFSET = "offset"
+    const val CATEGORY_ID = "category_id"
 
 }

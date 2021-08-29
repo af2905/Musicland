@@ -2,7 +2,7 @@ package com.github.af2905.musicland.presentation.widget.item
 
 import androidx.annotation.LayoutRes
 import com.github.af2905.musicland.R
-import com.github.af2905.musicland.data.CategoryDto
+import com.github.af2905.musicland.data.dto.CategoryDto
 import com.github.af2905.musicland.databinding.ListItemCategoryBinding
 import com.github.af2905.musicland.helper.loadImage
 import com.github.af2905.musicland.presentation.widget.adapter.delegate.ViewBindingDelegateAdapter

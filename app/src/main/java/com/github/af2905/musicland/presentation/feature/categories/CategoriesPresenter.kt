@@ -1,4 +1,4 @@
-package com.github.af2905.musicland.presentation.feature
+package com.github.af2905.musicland.presentation.feature.categories
 
 import com.github.af2905.musicland.domain.interactor.BrowseInteractor
 import com.github.af2905.musicland.presentation.base.UiState

@@ -1,4 +1,4 @@
-package com.github.af2905.musicland.data
+package com.github.af2905.musicland.data.dto
 
 import com.google.gson.annotations.SerializedName
 
@@ -18,13 +18,13 @@ data class CategoriesDto(
 
 data class CategoryDto(
     @SerializedName("href") val href: String,
-    @SerializedName("icons") val icons: List<CategoryIcon>?,
+    @SerializedName("icons") val icons: List<CategoryIconDto>?,
     @SerializedName("id") val id: String,
     @SerializedName("name") val name: String
 )
 
-data class CategoryIcon(
-    @SerializedName("height") val height: Int,
-    @SerializedName("width") val width: Int,
+data class CategoryIconDto(
+    @SerializedName("height") val height: Int?,
+    @SerializedName("width") val width: Int?,
     @SerializedName("url") val url: String
 )

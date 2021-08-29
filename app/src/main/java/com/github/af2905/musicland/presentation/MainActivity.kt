@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.github.af2905.musicland.R
 import com.github.af2905.musicland.databinding.ActivityMainBinding
-import com.github.af2905.musicland.presentation.feature.CategoriesFragment
+import com.github.af2905.musicland.presentation.feature.categories.CategoriesFragment
 
 class MainActivity : AppCompatActivity() {
 
