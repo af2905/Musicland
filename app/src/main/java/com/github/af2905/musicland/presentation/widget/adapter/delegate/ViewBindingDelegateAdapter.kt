@@ -20,12 +20,12 @@ abstract class ViewBindingDelegateAdapter<T : Model, V : ViewBinding>(
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder, items: List<Model>, position: Int
     ) {
-        (holder as ViewBindingHolder<V>).viewBinding.onBind(items[position] as T)
+        onBind(items[position] as T, (holder as ViewBindingHolder<V>).viewBinding)
     }
 
     open fun V.onCreated() {}
 
-    abstract fun V.onBind(item: T)
+    abstract fun onBind(item: T, viewBinding: V)
 
     private class ViewBindingHolder<V : ViewBinding>(
         val viewBinding: V

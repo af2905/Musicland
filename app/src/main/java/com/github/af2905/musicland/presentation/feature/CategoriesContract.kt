@@ -9,7 +9,7 @@ import com.github.af2905.musicland.presentation.widget.model.Model
 interface CategoriesContract {
     interface Presenter : BasePresenter {
         fun onViewCreated()
-        fun loadData()
+        fun onRefreshData()
         fun onOpenDetailClicked(item: CategoryItem)
     }
 

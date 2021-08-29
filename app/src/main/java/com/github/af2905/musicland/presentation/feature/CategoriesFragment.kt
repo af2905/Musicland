@@ -6,14 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import com.github.af2905.musicland.R
 import com.github.af2905.musicland.databinding.FragmentCategoriesBinding
 import com.github.af2905.musicland.di.DependencyInjector
+import com.github.af2905.musicland.domain.interactor.BrowseInteractor
 import com.github.af2905.musicland.presentation.base.UiState
-import com.github.af2905.musicland.presentation.widget.adapter.LoadingAdapter
 import com.github.af2905.musicland.presentation.widget.adapter.delegate.CompositeDelegateAdapter
-import com.github.af2905.musicland.presentation.widget.item.CategoryItem
-import com.github.af2905.musicland.presentation.widget.item.LoadingItem
+import com.github.af2905.musicland.presentation.widget.decorator.GridListItemDecorator
+import com.github.af2905.musicland.presentation.widget.item.*
 import com.github.af2905.musicland.presentation.widget.model.Model
 
 class CategoriesFragment : Fragment(), CategoriesContract.View {
@@ -33,19 +35,30 @@ class CategoriesFragment : Fragment(), CategoriesContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setPresenter(CategoriesPresenter(this, DependencyInjector()))
+        val browseInteractor = BrowseInteractor(DependencyInjector().browseRepository())
+        setPresenter(CategoriesPresenter(this, lifecycleScope, browseInteractor))
         adapter = CompositeDelegateAdapter(
-            CategoryAdapter(CategoryItem.VIEW_TYPE) { presenter.onOpenDetailClicked(it) },
-            LoadingAdapter(LoadingItem.VIEW_TYPE)
+            LoadingDelegate(LoadingItem.VIEW_TYPE),
+            GridListDelegate(
+                viewType = GridListItem.VIEW_TYPE,
+                adapter = {
+                    CompositeDelegateAdapter(
+                        CategoryDelegate(CategoryItem.VIEW_TYPE) { presenter.onOpenDetailClicked(it) }
+                    )
+                },
+                decoration = {
+                    GridListItemDecorator(
+                        marginBottom = it.resources.getDimensionPixelSize(R.dimen.default_margin),
+                        marginStart = it.resources.getDimensionPixelSize(R.dimen.default_margin),
+                        marginEnd = it.resources.getDimensionPixelSize(R.dimen.default_margin),
+                        spacing = it.resources.getDimensionPixelSize(R.dimen.default_margin_small)
+                    )
+                }
+            )
         )
         recyclerView = binding.categoriesRecyclerView
         recyclerView.adapter = adapter
         presenter.onViewCreated()
-    }
-
-    override fun onDestroy() {
-        presenter.onDestroy()
-        super.onDestroy()
     }
 
     companion object {
