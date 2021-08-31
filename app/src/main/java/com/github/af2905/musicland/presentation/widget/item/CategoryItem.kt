@@ -15,6 +15,14 @@ data class CategoryItem(
     val name: String
 ) : Model(VIEW_TYPE) {
 
+    override fun areItemsTheSame(item: Model): Boolean {
+        return item is CategoryItem && item.id == id
+    }
+
+    override fun areContentsTheSame(item: Model): Boolean {
+        return item is CategoryItem && item.name == name && item.icons == icons
+    }
+
     companion object {
 
         fun map(categoryDtoList: List<CategoryDto>?): List<CategoryItem> {

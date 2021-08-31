@@ -6,7 +6,7 @@ import com.github.af2905.musicland.presentation.base.UiState
 import com.github.af2905.musicland.presentation.widget.item.PlaylistItem
 import com.github.af2905.musicland.presentation.widget.model.Model
 
-class PlaylistContract {
+interface PlaylistContract {
     interface Presenter : BasePresenter {
         fun onViewCreated()
         fun onRefreshData()

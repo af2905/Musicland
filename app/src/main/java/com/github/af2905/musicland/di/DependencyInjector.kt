@@ -7,8 +7,9 @@ import com.github.af2905.musicland.data.network.interceptor.HttpHeaderIntercepto
 import com.github.af2905.musicland.data.network.interceptor.HttpLoggerInterceptor
 import com.github.af2905.musicland.data.network.interceptor.HttpLoggingInterceptorHelper
 import com.github.af2905.musicland.data.repository.BrowseRepository
+import com.github.af2905.musicland.domain.interactor.BrowseInteractor
 
-class DependencyInjector {
+object DependencyInjector {
 
     private val httpLoggingInterceptor =
         HttpLoggingInterceptorHelper(HttpLoggerInterceptor).provideHttpLoggingInterceptor()
@@ -22,6 +23,10 @@ class DependencyInjector {
 
     private val browseApi = BrowseApiHelper(retrofit).provideBrowseApi()
 
-    fun browseRepository() = BrowseRepository(browseApi)
+    private fun browseRepository() = BrowseRepository(browseApi)
+
+    fun browseInteractor(): BrowseInteractor {
+        return BrowseInteractor(browseRepository())
+    }
 
 }

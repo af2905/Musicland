@@ -37,7 +37,7 @@ class PlaylistsFragment : Fragment(), PlaylistContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val categoryId = requireArguments().getString(CATEGORY_ID_ARG)!!
-        val browseInteractor = BrowseInteractor(DependencyInjector().browseRepository())
+        val browseInteractor = DependencyInjector.browseInteractor()
         setPresenter(PlaylistsPresenter(categoryId, this, lifecycleScope, browseInteractor))
         adapter = CompositeDelegateAdapter(
             LoadingDelegate(LoadingItem.VIEW_TYPE),

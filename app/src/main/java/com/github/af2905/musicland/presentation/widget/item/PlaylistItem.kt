@@ -19,6 +19,16 @@ data class PlaylistItem(
     val type: String,
     val uri: String
 ) : Model(VIEW_TYPE) {
+
+    override fun areItemsTheSame(item: Model): Boolean {
+        return item is PlaylistItem && item.id == id
+    }
+
+    override fun areContentsTheSame(item: Model): Boolean {
+        return item is PlaylistItem && item.description == description && item.images == images
+                && item.name == name && item.tracks == tracks && item.type == type && item.uri == uri
+    }
+
     companion object {
         const val VIEW_TYPE = R.layout.list_item_playlist
 
@@ -26,7 +36,7 @@ data class PlaylistItem(
             return playlistDtoList?.map { map(it) } ?: emptyList()
         }
 
-        fun map(playlistDto: PlaylistDto): PlaylistItem {
+        private fun map(playlistDto: PlaylistDto): PlaylistItem {
             return with(playlistDto) {
                 PlaylistItem(
                     description = description,

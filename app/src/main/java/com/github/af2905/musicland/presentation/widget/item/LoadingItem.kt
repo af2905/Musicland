@@ -8,6 +8,14 @@ import com.github.af2905.musicland.presentation.widget.model.Model
 
 class LoadingItem : Model(VIEW_TYPE) {
 
+    override fun areItemsTheSame(item: Model): Boolean {
+        return item is LoadingItem
+    }
+
+    override fun areContentsTheSame(item: Model): Boolean {
+        return item is LoadingItem
+    }
+
     companion object {
         const val VIEW_TYPE = R.layout.list_item_loading
     }

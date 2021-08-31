@@ -13,6 +13,14 @@ import com.github.af2905.musicland.presentation.widget.model.Model
 
 class GridListItem(val list: List<Model>) : Model(VIEW_TYPE) {
 
+    override fun areItemsTheSame(item: Model): Boolean {
+        return item is GridListItem
+    }
+
+    override fun areContentsTheSame(item: Model): Boolean {
+        return item is GridListItem && item.list == list
+    }
+
     companion object {
         const val VIEW_TYPE = R.layout.list_item_list
         const val GRID_LIST_DEFAULT_SPAN_COUNT = 2
