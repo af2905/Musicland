@@ -32,6 +32,6 @@ interface BrowseApi {
         const val ACCEPT_HEADER = "Accept: application/json"
         const val CONTENT_TYPE_HEADER = "Content-Type: application/json"
         const val AUTHORIZATION_BEARER_HEADER =
-            "Authorization: Bearer BQCMb6c9pdqw3bnauzsxyIpPReNb6qF15jzqwW0cmxBTBxtMbdD6Fzoy7zzdBCEVVOoiDRrRdyyDtx0zCLtn3TM22Xp5NGF7hYmzEgm_suD0RHu5b4Zku3tx4fYftAoNtA5dMmnMWMxZ-eZlL0Z7PPLGvE7xxC-X3nwEifv5wdFP-zz5qokEkf_qYHFKDpnOjlMRFBMgc6o"
+            "Authorization: Bearer BQBuwgRqGfGYhTbzKeYowxc-JmJQQMQnuXlc-LgIuMni7cdXZHrd4CAlP55dBXviDcPFMp-Iwtw9CJkkooWpT__kTG0YocvoJWBMkJkrCe_h6WULA9Sv0pQAMJKyx2-0-W0HCPveVmNg2S-8oSCHCTVEPg4lmL0vI1Z495t4wQ05mNh8sKcTnaKEdielmk9hiwRgDnWzTPw"
     }
 }
