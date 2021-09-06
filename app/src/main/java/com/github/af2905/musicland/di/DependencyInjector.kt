@@ -8,6 +8,11 @@ import com.github.af2905.musicland.data.network.interceptor.HttpLoggerIntercepto
 import com.github.af2905.musicland.data.network.interceptor.HttpLoggingInterceptorHelper
 import com.github.af2905.musicland.data.repository.BrowseRepository
 import com.github.af2905.musicland.domain.interactor.BrowseInteractor
+import com.github.af2905.musicland.presentation.feature.categories.CategoriesContract
+import com.github.af2905.musicland.presentation.feature.categories.CategoriesPresenter
+import com.github.af2905.musicland.presentation.feature.playlists.PlaylistContract
+import com.github.af2905.musicland.presentation.feature.playlists.PlaylistsPresenter
+import kotlinx.coroutines.CoroutineScope
 
 object DependencyInjector {
 
@@ -29,4 +34,20 @@ object DependencyInjector {
         return BrowseInteractor(browseRepository())
     }
 
+    fun categoriesPresenter(
+        view: CategoriesContract.View,
+        scope: CoroutineScope,
+        browseInteractor: BrowseInteractor
+    ): CategoriesPresenter {
+        return CategoriesPresenter(view, scope, browseInteractor)
+    }
+
+    fun playlistsPresenter(
+        categoryId: String,
+        view: PlaylistContract.View,
+        scope: CoroutineScope,
+        browseInteractor: BrowseInteractor
+    ): PlaylistsPresenter {
+        return PlaylistsPresenter(categoryId, view, scope, browseInteractor)
+    }
 }

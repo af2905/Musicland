@@ -36,7 +36,7 @@ class CategoriesFragment : Fragment(), CategoriesContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val browseInteractor = DependencyInjector.browseInteractor()
-        setPresenter(CategoriesPresenter(this, lifecycleScope, browseInteractor)) //вынести
+        setPresenter(DependencyInjector.categoriesPresenter(this, lifecycleScope, browseInteractor))
         adapter = CompositeDelegateAdapter(
             LoadingDelegate(LoadingItem.VIEW_TYPE),
             GridListDelegate(

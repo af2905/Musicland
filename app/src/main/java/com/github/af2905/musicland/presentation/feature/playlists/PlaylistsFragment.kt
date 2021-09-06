@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.af2905.musicland.R
 import com.github.af2905.musicland.databinding.FragmentPlaylistsBinding
 import com.github.af2905.musicland.di.DependencyInjector
-import com.github.af2905.musicland.domain.interactor.BrowseInteractor
 import com.github.af2905.musicland.helper.putArgs
 import com.github.af2905.musicland.presentation.base.UiState
 import com.github.af2905.musicland.presentation.widget.adapter.delegate.CompositeDelegateAdapter
@@ -38,7 +37,11 @@ class PlaylistsFragment : Fragment(), PlaylistContract.View {
         super.onViewCreated(view, savedInstanceState)
         val categoryId = requireArguments().getString(CATEGORY_ID_ARG)!!
         val browseInteractor = DependencyInjector.browseInteractor()
-        setPresenter(PlaylistsPresenter(categoryId, this, lifecycleScope, browseInteractor))
+        setPresenter(
+            DependencyInjector.playlistsPresenter(
+                categoryId, this, lifecycleScope, browseInteractor
+            )
+        )
         adapter = CompositeDelegateAdapter(
             LoadingDelegate(LoadingItem.VIEW_TYPE),
             GridListDelegate(
