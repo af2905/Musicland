@@ -6,11 +6,10 @@ import com.github.af2905.musicland.data.dto.PlaylistDto
 import com.github.af2905.musicland.databinding.ListItemPlaylistBinding
 import com.github.af2905.musicland.helper.loadImage
 import com.github.af2905.musicland.presentation.widget.adapter.delegate.ViewBindingDelegateAdapter
-import com.github.af2905.musicland.presentation.widget.model.ItemIds.PLAYLIST_ITEM_ID
 import com.github.af2905.musicland.presentation.widget.model.Model
 
 data class PlaylistItem(
-    override val id: String = PLAYLIST_ITEM_ID,
+    override val id: String,
     val description: String,
     val href: String,
     val images: List<String>?,

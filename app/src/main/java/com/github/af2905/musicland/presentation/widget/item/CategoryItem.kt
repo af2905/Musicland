@@ -6,11 +6,10 @@ import com.github.af2905.musicland.data.dto.CategoryDto
 import com.github.af2905.musicland.databinding.ListItemCategoryBinding
 import com.github.af2905.musicland.helper.loadImage
 import com.github.af2905.musicland.presentation.widget.adapter.delegate.ViewBindingDelegateAdapter
-import com.github.af2905.musicland.presentation.widget.model.ItemIds.CATEGORY_ITEM_ID
 import com.github.af2905.musicland.presentation.widget.model.Model
 
 data class CategoryItem(
-    override val id: String = CATEGORY_ITEM_ID,
+    override val id: String,
     val href: String,
     val icons: List<String>?,
     val name: String

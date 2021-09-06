@@ -1,5 +1,9 @@
 package com.github.af2905.musicland.di
 
+import com.github.af2905.musicland.data.mapper.CategoriesDtoToUiMapper
+import com.github.af2905.musicland.data.mapper.CategoryDtoToUiMapper
+import com.github.af2905.musicland.data.mapper.PlaylistDtoToUiMapper
+import com.github.af2905.musicland.data.mapper.PlaylistsDtoToUiMapper
 import com.github.af2905.musicland.data.network.OkHttpClientHelper
 import com.github.af2905.musicland.data.network.RetrofitClientHelper
 import com.github.af2905.musicland.data.network.api.BrowseApiHelper
@@ -30,8 +34,16 @@ object DependencyInjector {
 
     private fun browseRepository() = BrowseRepository(browseApi)
 
+    private fun categoryMapper() = CategoryDtoToUiMapper()
+
+    private fun categoriesMapper() = CategoriesDtoToUiMapper(categoryMapper())
+
+    private fun playlistMapper() = PlaylistDtoToUiMapper()
+
+    private fun playlistsMapper() = PlaylistsDtoToUiMapper(playlistMapper())
+
     fun browseInteractor(): BrowseInteractor {
-        return BrowseInteractor(browseRepository())
+        return BrowseInteractor(browseRepository(), categoriesMapper(), playlistsMapper())
     }
 
     fun categoriesPresenter(
