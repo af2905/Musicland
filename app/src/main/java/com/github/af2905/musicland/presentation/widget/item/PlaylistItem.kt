@@ -2,7 +2,6 @@ package com.github.af2905.musicland.presentation.widget.item
 
 import androidx.annotation.LayoutRes
 import com.github.af2905.musicland.R
-import com.github.af2905.musicland.data.dto.PlaylistDto
 import com.github.af2905.musicland.databinding.ListItemPlaylistBinding
 import com.github.af2905.musicland.helper.loadImage
 import com.github.af2905.musicland.presentation.widget.adapter.delegate.ViewBindingDelegateAdapter
@@ -22,26 +21,6 @@ data class PlaylistItem(
 
     companion object {
         const val VIEW_TYPE = R.layout.list_item_playlist
-
-        fun map(playlistDtoList: List<PlaylistDto>?): List<PlaylistItem> {
-            return playlistDtoList?.map { map(it) } ?: emptyList()
-        }
-
-        private fun map(playlistDto: PlaylistDto): PlaylistItem {
-            return with(playlistDto) {
-                PlaylistItem(
-                    id = id,
-                    description = description,
-                    href = href,
-                    images = images?.map { it.url },
-                    name = name,
-                    snapshotId = snapshotId,
-                    tracks = tracks.total,
-                    type = type,
-                    uri = uri
-                )
-            }
-        }
     }
 
     fun interface PlaylistClickListener {

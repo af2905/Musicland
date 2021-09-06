@@ -2,7 +2,6 @@ package com.github.af2905.musicland.presentation.widget.item
 
 import androidx.annotation.LayoutRes
 import com.github.af2905.musicland.R
-import com.github.af2905.musicland.data.dto.CategoryDto
 import com.github.af2905.musicland.databinding.ListItemCategoryBinding
 import com.github.af2905.musicland.helper.loadImage
 import com.github.af2905.musicland.presentation.widget.adapter.delegate.ViewBindingDelegateAdapter
@@ -21,19 +20,6 @@ data class CategoryItem(
 
     companion object {
         const val VIEW_TYPE = R.layout.list_item_category
-
-        fun map(categoryDtoList: List<CategoryDto>?): List<CategoryItem> {
-            return categoryDtoList?.map { map(it) } ?: emptyList()
-        }
-
-        private fun map(categoryDto: CategoryDto): CategoryItem {
-            return CategoryItem(
-                href = categoryDto.href,
-                icons = categoryDto.icons?.map { it.url },
-                id = categoryDto.id,
-                name = categoryDto.name
-            )
-        }
     }
 
     fun interface CategoryClickListener {
