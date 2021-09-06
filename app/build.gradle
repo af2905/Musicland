@@ -51,6 +51,7 @@ ext {
     gsonVersion = '2.8.6'
     recyclerViewVersion = '1.2.1'
     lifecycleVersion = "2.3.1"
+    swipeRefreshLayoutVersion = "1.1.0"
 }
 
 dependencies {
@@ -79,5 +80,7 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$timberVersion"
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
+    //SwipeRefreshLayout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipeRefreshLayoutVersion"
 
 }

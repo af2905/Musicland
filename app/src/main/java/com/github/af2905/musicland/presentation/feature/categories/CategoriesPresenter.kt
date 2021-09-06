@@ -1,13 +1,13 @@
 package com.github.af2905.musicland.presentation.feature.categories
 
 import com.github.af2905.musicland.domain.interactor.BrowseInteractor
-import com.github.af2905.musicland.presentation.base.UiState
 import com.github.af2905.musicland.presentation.widget.item.CategoryItem
 import com.github.af2905.musicland.presentation.widget.item.GridListItem
-import com.github.af2905.musicland.presentation.widget.item.LoadingItem
 import com.github.af2905.musicland.presentation.widget.model.Model
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import timber.log.Timber
+import java.util.*
 
 class CategoriesPresenter(
     view: CategoriesContract.View,
@@ -18,13 +18,14 @@ class CategoriesPresenter(
     private var view: CategoriesContract.View? = view
 
     private val items = mutableListOf<Model>()
-    private fun starter() = mutableListOf(LoadingItem())
 
     override fun onViewCreated() {
         loadCategories()
     }
 
     override fun onRefreshData() {
+        Timber.tag("REFRESH_DATA").i("I'm here")
+
         loadCategories()
     }
 
@@ -33,14 +34,26 @@ class CategoriesPresenter(
     }
 
     private fun loadCategories() {
-        view?.displayUiState(UiState.LOADING, starter())
+        view?.displayLoading()
         coroutineScope.launch {
             val categories = browseInteractor.getCategories()
             if (!categories.isNullOrEmpty()) {
-                items.add(GridListItem(categories))
-                view?.displayUiState(UiState.SUCCESS, items)
+
+                val random = Random()
+                val randomCategories =
+                    if (random.nextInt() >= categories.size) categories.take(categories.size)
+                    else categories.take(3)
+                items.clear()
+
+                val gridListItemId = random.nextInt().toString()
+
+                items.add(GridListItem(randomCategories, id = gridListItemId))
+
+                Timber.tag("REFRESH_DATA").i("${items.size}")
+
+                view?.displayItems(items)
             } else {
-                view?.displayUiState(UiState.FAIL)
+                view?.displayError()
             }
         }
     }

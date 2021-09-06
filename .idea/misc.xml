@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/projects/Musicland/app/src/main/res/drawable/ic_heard_selector.xml" value="0.2101851851851852" />
+        <entry key="..\:/projects/Musicland/app/src/main/res/drawable/ic_heart.xml" value="0.2101851851851852" />
+        <entry key="..\:/projects/Musicland/app/src/main/res/drawable/ic_heart_outline.xml" value="0.2101851851851852" />
         <entry key="..\:/projects/Musicland/app/src/main/res/drawable/ic_placeholder.xml" value="0.2708333333333333" />
         <entry key="..\:/projects/Musicland/app/src/main/res/layout/activity_main.xml" value="0.2546875" />
         <entry key="..\:/projects/Musicland/app/src/main/res/layout/fragment_categories.xml" value="0.2546875" />

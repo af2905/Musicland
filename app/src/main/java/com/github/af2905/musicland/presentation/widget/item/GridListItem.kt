@@ -9,16 +9,14 @@ import com.github.af2905.musicland.databinding.ListItemListBinding
 import com.github.af2905.musicland.presentation.widget.adapter.delegate.CompositeDelegateAdapter
 import com.github.af2905.musicland.presentation.widget.adapter.delegate.ViewBindingDelegateAdapter
 import com.github.af2905.musicland.presentation.widget.item.GridListItem.Companion.GRID_LIST_DEFAULT_SPAN_COUNT
+import com.github.af2905.musicland.presentation.widget.model.ItemIds.GRID_LIST_ITEM_ID
 import com.github.af2905.musicland.presentation.widget.model.Model
 
-class GridListItem(val list: List<Model>) : Model(VIEW_TYPE) {
-
-    override fun areItemsTheSame(item: Model): Boolean {
-        return item is GridListItem
-    }
+data class GridListItem(val list: List<Model>, override val id: String = GRID_LIST_ITEM_ID) :
+    Model(VIEW_TYPE) {
 
     override fun areContentsTheSame(item: Model): Boolean {
-        return item is GridListItem && item.list == list
+        return  item is GridListItem && item.list.size == list.size
     }
 
     companion object {

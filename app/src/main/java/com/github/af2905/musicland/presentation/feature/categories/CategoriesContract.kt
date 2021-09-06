@@ -2,7 +2,6 @@ package com.github.af2905.musicland.presentation.feature.categories
 
 import com.github.af2905.musicland.presentation.base.BasePresenter
 import com.github.af2905.musicland.presentation.base.BaseView
-import com.github.af2905.musicland.presentation.base.UiState
 import com.github.af2905.musicland.presentation.widget.item.CategoryItem
 import com.github.af2905.musicland.presentation.widget.model.Model
 
@@ -14,7 +13,9 @@ interface CategoriesContract {
     }
 
     interface View : BaseView<Presenter> {
-        fun displayUiState(uiState: UiState, list: List<Model> = emptyList())
+        fun displayLoading()
+        fun displayItems(list: List<Model>)
+        fun displayError()
         fun forwardToDetail(item: CategoryItem)
     }
 }

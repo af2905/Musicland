@@ -6,12 +6,13 @@ import com.github.af2905.musicland.data.dto.PlaylistDto
 import com.github.af2905.musicland.databinding.ListItemPlaylistBinding
 import com.github.af2905.musicland.helper.loadImage
 import com.github.af2905.musicland.presentation.widget.adapter.delegate.ViewBindingDelegateAdapter
+import com.github.af2905.musicland.presentation.widget.model.ItemIds.PLAYLIST_ITEM_ID
 import com.github.af2905.musicland.presentation.widget.model.Model
 
 data class PlaylistItem(
+    override val id: String = PLAYLIST_ITEM_ID,
     val description: String,
     val href: String,
-    val id: String,
     val images: List<String>?,
     val name: String,
     val snapshotId: String,
@@ -19,15 +20,6 @@ data class PlaylistItem(
     val type: String,
     val uri: String
 ) : Model(VIEW_TYPE) {
-
-    override fun areItemsTheSame(item: Model): Boolean {
-        return item is PlaylistItem && item.id == id
-    }
-
-    override fun areContentsTheSame(item: Model): Boolean {
-        return item is PlaylistItem && item.description == description && item.images == images
-                && item.name == name && item.tracks == tracks && item.type == type && item.uri == uri
-    }
 
     companion object {
         const val VIEW_TYPE = R.layout.list_item_playlist
@@ -39,9 +31,9 @@ data class PlaylistItem(
         private fun map(playlistDto: PlaylistDto): PlaylistItem {
             return with(playlistDto) {
                 PlaylistItem(
+                    id = id,
                     description = description,
                     href = href,
-                    id = id,
                     images = images?.map { it.url },
                     name = name,
                     snapshotId = snapshotId,

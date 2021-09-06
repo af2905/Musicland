@@ -11,13 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.af2905.musicland.R
 import com.github.af2905.musicland.databinding.FragmentCategoriesBinding
 import com.github.af2905.musicland.di.DependencyInjector
-import com.github.af2905.musicland.domain.interactor.BrowseInteractor
-import com.github.af2905.musicland.presentation.base.UiState
 import com.github.af2905.musicland.presentation.feature.playlists.PlaylistsFragment
 import com.github.af2905.musicland.presentation.widget.adapter.delegate.CompositeDelegateAdapter
 import com.github.af2905.musicland.presentation.widget.decorator.GridListItemDecorator
 import com.github.af2905.musicland.presentation.widget.item.*
 import com.github.af2905.musicland.presentation.widget.model.Model
+import timber.log.Timber
 
 class CategoriesFragment : Fragment(), CategoriesContract.View {
 
@@ -60,18 +59,27 @@ class CategoriesFragment : Fragment(), CategoriesContract.View {
         recyclerView = binding.categoriesRecyclerView
         recyclerView.adapter = adapter
         presenter.onViewCreated()
+        binding.categoriesSwipeRefreshLayout.setOnRefreshListener {
+            Timber.tag("REFRESH_DATA").i("categoriesSwipeRefreshLayout")
+            presenter.onRefreshData()
+        }
     }
 
     companion object {
         val TAG: String = CategoriesFragment::class.java.simpleName
     }
 
-    override fun displayUiState(uiState: UiState, list: List<Model>) {
-        when (uiState) {
-            UiState.LOADING -> adapter.submitList(list)
-            UiState.SUCCESS -> adapter.submitList(list)
-            UiState.FAIL -> Toast.makeText(requireContext(), "fail", Toast.LENGTH_SHORT).show()
-        }
+    override fun displayLoading() {
+        binding.categoriesSwipeRefreshLayout.isRefreshing = true
+    }
+
+    override fun displayItems(list: List<Model>) {
+        binding.categoriesSwipeRefreshLayout.isRefreshing = false
+        adapter.submitList(list)
+    }
+
+    override fun displayError() {
+        Toast.makeText(requireContext(), "fail", Toast.LENGTH_SHORT).show()
     }
 
     override fun forwardToDetail(item: CategoryItem) {

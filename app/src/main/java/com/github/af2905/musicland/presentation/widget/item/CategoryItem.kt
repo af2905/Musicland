@@ -6,24 +6,22 @@ import com.github.af2905.musicland.data.dto.CategoryDto
 import com.github.af2905.musicland.databinding.ListItemCategoryBinding
 import com.github.af2905.musicland.helper.loadImage
 import com.github.af2905.musicland.presentation.widget.adapter.delegate.ViewBindingDelegateAdapter
+import com.github.af2905.musicland.presentation.widget.model.ItemIds.CATEGORY_ITEM_ID
 import com.github.af2905.musicland.presentation.widget.model.Model
 
 data class CategoryItem(
+    override val id: String = CATEGORY_ITEM_ID,
     val href: String,
     val icons: List<String>?,
-    val id: String,
     val name: String
 ) : Model(VIEW_TYPE) {
-
-    override fun areItemsTheSame(item: Model): Boolean {
-        return item is CategoryItem && item.id == id
-    }
 
     override fun areContentsTheSame(item: Model): Boolean {
         return item is CategoryItem && item.name == name && item.icons == icons
     }
 
     companion object {
+        const val VIEW_TYPE = R.layout.list_item_category
 
         fun map(categoryDtoList: List<CategoryDto>?): List<CategoryItem> {
             return categoryDtoList?.map { map(it) } ?: emptyList()
@@ -37,8 +35,6 @@ data class CategoryItem(
                 name = categoryDto.name
             )
         }
-
-        const val VIEW_TYPE = R.layout.list_item_category
     }
 
     fun interface CategoryClickListener {

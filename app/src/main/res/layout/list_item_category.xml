@@ -5,22 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/categoryImage"
+    <FrameLayout
+        android:id="@+id/categoryFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:minHeight="@dimen/default_card_height"
-        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent"
-        app:strokeColor="@color/lightGrey"
-        app:strokeWidth="@dimen/default_stroke">
+        app:layout_constraintTop_toTopOf="parent">
 
-    </com.google.android.material.imageview.ShapeableImageView>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/categoryImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/default_card_height"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent"
+            app:strokeColor="@color/lightGrey"
+            app:strokeWidth="@dimen/default_stroke">
+
+        </com.google.android.material.imageview.ShapeableImageView>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/categoryLikeCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:button="@drawable/ic_heart_selector"
+            app:useMaterialThemeColors="false" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/categoryTitleText"
@@ -28,8 +42,8 @@
         android:layout_height="wrap_content"
         android:background="?selectableItemBackground"
         android:gravity="center_horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/categoryImage"
-        app:layout_constraintStart_toStartOf="@+id/categoryImage"
-        app:layout_constraintTop_toBottomOf="@+id/categoryImage" />
+        app:layout_constraintEnd_toEndOf="@+id/categoryFrameLayout"
+        app:layout_constraintStart_toStartOf="@+id/categoryFrameLayout"
+        app:layout_constraintTop_toBottomOf="@+id/categoryFrameLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
